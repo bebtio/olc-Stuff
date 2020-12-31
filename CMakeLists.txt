@@ -28,3 +28,4 @@ project( olcStuff )
 
 ## Define sources for executable.
 add_subdirectory( 1_UserInputDisplay )
+add_subdirectory( 2_NewYearsFireWorks )
