@@ -9,14 +9,14 @@
 
 #include "Firework.hpp"
 
+#define FUSETIME 100
+#define GRAVITY  0.15
 class FireWorksDisplay : public olc::PixelGameEngine
 {
 public:
 	FireWorksDisplay()
 	{
 		sAppName = "Happy New Year!";
-		fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), olc::vd2d(0,-5) );
-		currentTicks = 0;
 
 	}
 
@@ -24,42 +24,62 @@ public:
 
 	bool OnUserCreate() override
 	{
+		fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), olc::vd2d(0,-5), FUSETIME );
+
 		return true;
 	}
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{
 
-		currentTicks++;
-		std::this_thread::sleep_for(std::chrono::milliseconds(20));
 		Clear( olc::Pixel( olc::BLACK ) );
-		DrawFireWork( fw );
+		RunFireWork( fw );
+
 		return true;
 	}
 
 private:
+    
+	void RunFireWork( FireWork& f)
+	{
+		if( !f.timeToExplode() )
+		{
+			DrawFireWork( f );
+		}
+		else
+		{
+			DrawExplosion( f );
+			ResetFireWork( f );
+		}
+
+		// Move through time.
+		f.tick( GRAVITY );  
+
+	}
 
     void DrawFireWork( FireWork& f )
     {
+		FillCircle( f.pos.x, f.pos.y, 4 );
+          
+	}
 
-        FillCircle( f.pos.x, f.pos.y, 4 );
-        
-		// Move through time.
-		f.tick( 0.1 );
+	void DrawExplosion( FireWork& f )
+	{
+		DrawString( f.pos, "BOOM", olc::WHITE, 5U );
+		std::this_thread::sleep_for( std::chrono::milliseconds(1000) );
+	}
 
-		// 
-		if( f.pos.y > ScreenHeight() )
-		{
-			fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), olc::vd2d(0,-5) );
-		}
-
-    
+	void ResetFireWork( FireWork& f )
+	{
+		// Reset the position velocity parameters.
+		int xVel = getRandomNumberInRange<int>(-2,2);
+		int yVel = getRandomNumberInRange<int>(-12,-8);
+		fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), olc::vd2d(xVel,yVel), FUSETIME );
 	}
 
 	// Creates the text that will be displayed on the screen.
 	// Populated with key, mouse, and screen information.
     FireWork fw;
-	unsigned int currentTicks;
 };
 
 #endif // __FIREWORKSDISPLAY_HPP__

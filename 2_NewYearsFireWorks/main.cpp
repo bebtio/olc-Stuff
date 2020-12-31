@@ -7,7 +7,7 @@ int main( int argc, char** argv )
 
     FireWorksDisplay fwd;
 
-    if( fwd.Construct(256,256,4,4) )
+    if( fwd.Construct(512,512,4,4) )
     {
         fwd.Start();
     }

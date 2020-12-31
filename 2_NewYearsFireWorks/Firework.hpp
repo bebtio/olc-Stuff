@@ -14,25 +14,35 @@ struct FireWork
 
     }
 
-    void initialize(olc::vi2d initialPos = olc::vi2d(0,0), olc::vi2d initialVel = olc::vi2d(0,0) )
+    void initialize(olc::vi2d initialPos, olc::vi2d initialVel, int delayTicks )
     {
         pos = initialPos;
         vel = initialVel;
+        fuseDelayTicks = delayTicks;
     }
 
     void tick( double vAcc ) 
     {
         pos   += vel;
         vel.y += vAcc;
+        fuseDelayTicks--;
     }
 
-    bool timeToExplode( int currTicks )
+    bool timeToExplode( )
     {
-        return( false );
+        if( fuseDelayTicks > 0)
+        {
+            return(false);
+        }
+        else
+        {
+            return( true );
+        }
     }
 
     olc::vd2d pos;
     olc::vd2d vel;
+    int fuseDelayTicks;
 };
 
 FireWork createFireWork();
