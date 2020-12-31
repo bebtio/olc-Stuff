@@ -1,10 +1,9 @@
 #include <iostream>
 #include "FireWorksDisplay.hpp"
-
+#include "Entity2D.hpp"
 int main( int argc, char** argv )
 {
-    FireWork fw;
-
+    Entity2D<int> e;
     FireWorksDisplay fwd;
 
     if( fwd.Construct(512,512,4,4) )

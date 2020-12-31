@@ -4,13 +4,16 @@
 
 #include <thread>
 #include <chrono>
+#include <string>
 
 #include "olcPixelGameEngine.h"
 
 #include "Firework.hpp"
 
 #define FUSETIME 100
+#define EXPLODETIME 100
 #define GRAVITY  0.15
+
 class FireWorksDisplay : public olc::PixelGameEngine
 {
 public:
@@ -24,7 +27,11 @@ public:
 
 	bool OnUserCreate() override
 	{
-		fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), olc::vd2d(0,-5), FUSETIME );
+		fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), 
+		               olc::vd2d(0,-1), 
+					   olc::vd2d(0,GRAVITY),
+					   FUSETIME, 
+					   EXPLODETIME );
 
 		return true;
 	}
@@ -34,6 +41,7 @@ public:
 
 		Clear( olc::Pixel( olc::BLACK ) );
 		RunFireWork( fw );
+		DrawString(0,0, std::to_string( fw.getPos().x ) + std::to_string( fw.getPos().y) );
 
 		return true;
 	}
@@ -49,32 +57,43 @@ private:
 		else
 		{
 			DrawExplosion( f );
-			ResetFireWork( f );
+			if( f.ExplosionFinished() )
+			{
+				ResetFireWork( f );
+			}
 		}
 
 		// Move through time.
-		f.tick( GRAVITY );  
+		f.tick();  
 
 	}
 
     void DrawFireWork( FireWork& f )
     {
-		FillCircle( f.pos.x, f.pos.y, 4 );
-          
+		FillCircle( f.getPos(), 4 );
 	}
 
 	void DrawExplosion( FireWork& f )
 	{
-		DrawString( f.pos, "BOOM", olc::WHITE, 5U );
-		std::this_thread::sleep_for( std::chrono::milliseconds(1000) );
+		for( const olc::vd2d &flare : f.flarePos)
+		{
+			
+			FillCircle(flare, 2);
+
+		}
 	}
 
 	void ResetFireWork( FireWork& f )
 	{
 		// Reset the position velocity parameters.
-		int xVel = getRandomNumberInRange<int>(-2,2);
-		int yVel = getRandomNumberInRange<int>(-12,-8);
-		fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), olc::vd2d(xVel,yVel), FUSETIME );
+		double xVel = getRandomNumberInRange<double>(-3,3);
+		double yVel = getRandomNumberInRange<double>(-12,-8);
+
+		fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), 
+					   olc::vd2d(xVel,yVel), 
+					   olc::vd2d(0, GRAVITY),
+					   FUSETIME, 
+					   EXPLODETIME );
 	}
 
 	// Creates the text that will be displayed on the screen.
