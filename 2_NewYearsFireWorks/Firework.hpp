@@ -115,11 +115,8 @@ struct FireWork : public Entity2D<double>
 template <class T>
 T getRandomNumberInRange( T start, T end)
 {
-    T number;
-    std::random_device rd; // obtain a random number from hardware
-    std::mt19937 gen(rd()); // seed the generator
-    std::uniform_real_distribution<> distr(start, end);
-    number = distr(gen);
+    double f = (double)rand() / RAND_MAX;
+    T number = start + f*(end-start);
 
     return(number);
 }
