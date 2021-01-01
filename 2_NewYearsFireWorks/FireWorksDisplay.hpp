@@ -10,7 +10,7 @@
 
 #include "Firework.hpp"
 
-#define NUMFIREWORKS 1
+#define NUMFIREWORKS 10
 #define FUSETIME 100
 #define EXPLODETIME 300
 #define GRAVITY  0.15
@@ -29,15 +29,19 @@ public:
 	{
 		fw.resize(NUMFIREWORKS);
 
+
 		for( FireWork& f : fw )
 		{
-		f.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), 
-		               olc::vd2d(0,-1), 
-					   olc::vd2d(0,GRAVITY),
-					   FUSETIME, 
-					   EXPLODETIME,
-					   5,
-					   25 );
+			double xVel = getRandomNumberInRange<double>(-3,3);
+			double yVel = getRandomNumberInRange<double>(-18,-12);
+
+			f.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), 
+			              olc::vd2d(xVel,yVel), 
+						  olc::vd2d(0,GRAVITY),
+						  FUSETIME, 
+						  EXPLODETIME,
+						  5,
+						  25 );
 		}
 
 		sprite = new olc::Sprite("../../2_NewYearsFireWorks/images/happyNewYear.png");
@@ -52,7 +56,9 @@ public:
 		DrawSprite((ScreenWidth() - sprite->width)/2,10, sprite, 0.25);
 
 		for( FireWork& f: fw)
+		{
 			RunFireWork( f );
+		}
 
 		return true;
 	}
@@ -113,9 +119,9 @@ private:
 	{
 		// Reset the position velocity parameters.
 		double xVel = getRandomNumberInRange<double>(-3,3);
-		double yVel = getRandomNumberInRange<double>(-18,-10);
+		double yVel = getRandomNumberInRange<double>(-18,-12);
 
-		f.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), 
+		f.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()+20), 
 					   olc::vd2d(xVel,yVel), 
 					   olc::vd2d(0, GRAVITY),
 					   FUSETIME, 

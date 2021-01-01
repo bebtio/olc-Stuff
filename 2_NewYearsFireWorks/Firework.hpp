@@ -9,6 +9,9 @@
 #include "olcPixelGameEngine.h"
 #include "Entity2D.hpp"
 
+template <class T>
+T getRandomNumberInRange( T start, T end);
+
 struct FireWork : public Entity2D<double>
 {
 
@@ -32,14 +35,18 @@ struct FireWork : public Entity2D<double>
         fuseDelayTicks = delayTicks;
         explosionTicks = explodeTicks;
         createFlares( numFlares,flareVel );
+        startDelayTicks = getRandomNumberInRange<int>(50,500);
     }
 
     void tick( ) 
     {
-        update();
-        fuseDelayTicks--;
-
-        handleFlares(acc.y);
+        if( startDelayTicks <= 0 )
+        {
+            update();
+            fuseDelayTicks--;
+            handleFlares(acc.y);
+        }
+        startDelayTicks--;
     }
 
     bool timeToExplode( )
@@ -104,6 +111,7 @@ struct FireWork : public Entity2D<double>
         }
     }
     
+    int startDelayTicks;
     int fuseDelayTicks;
     int explosionTicks;
 
