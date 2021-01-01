@@ -30,9 +30,6 @@ public:
     {
         pos += vel;
         vel += acc;
-
-        std::cout << "POS: " << pos << std::endl;
-        std::cout << "VEL: " << vel << std::endl;
     }
 
 protected:

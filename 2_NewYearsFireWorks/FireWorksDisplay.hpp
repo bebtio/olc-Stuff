@@ -10,8 +10,9 @@
 
 #include "Firework.hpp"
 
+#define NUMFIREWORKS 1
 #define FUSETIME 100
-#define EXPLODETIME 100
+#define EXPLODETIME 300
 #define GRAVITY  0.15
 
 class FireWorksDisplay : public olc::PixelGameEngine
@@ -20,18 +21,26 @@ public:
 	FireWorksDisplay()
 	{
 		sAppName = "Happy New Year!";
-
 	}
 
 public:
 
 	bool OnUserCreate() override
 	{
-		fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), 
+		fw.resize(NUMFIREWORKS);
+
+		for( FireWork& f : fw )
+		{
+		f.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), 
 		               olc::vd2d(0,-1), 
 					   olc::vd2d(0,GRAVITY),
 					   FUSETIME, 
-					   EXPLODETIME );
+					   EXPLODETIME,
+					   5,
+					   25 );
+		}
+
+		sprite = new olc::Sprite("../../2_NewYearsFireWorks/images/happyNewYear.png");
 
 		return true;
 	}
@@ -40,10 +49,18 @@ public:
 	{
 
 		Clear( olc::Pixel( olc::BLACK ) );
-		RunFireWork( fw );
-		DrawString(0,0, std::to_string( fw.getPos().x ) + std::to_string( fw.getPos().y) );
+		DrawSprite((ScreenWidth() - sprite->width)/2,10, sprite, 0.25);
+
+		for( FireWork& f: fw)
+			RunFireWork( f );
 
 		return true;
+	}
+
+	bool OnUserDestroy()
+	{
+		delete sprite;
+		return( true );
 	}
 
 private:
@@ -70,15 +87,24 @@ private:
 
     void DrawFireWork( FireWork& f )
     {
-		FillCircle( f.getPos(), 4 );
+		olc::Pixel color(getRandomNumberInRange<int>(155,255),
+		 				 getRandomNumberInRange<int>(155,255),
+						 getRandomNumberInRange<int>(155,255));
+
+		FillCircle( f.getPos(), getRandomNumberInRange<int>(3,20),color );
 	}
 
 	void DrawExplosion( FireWork& f )
 	{
-		for( const olc::vd2d &flare : f.flarePos)
+		for( FireWork &flare : f.flares)
 		{
 			
-			FillCircle(flare, 2);
+			olc::Pixel color(getRandomNumberInRange<int>(155,255),
+		 				     getRandomNumberInRange<int>(155,255),
+						     getRandomNumberInRange<int>(155,255));
+			int size( getRandomNumberInRange<int>(10,15));
+			FillCircle( flare.getPos(), size, color);
+
 
 		}
 	}
@@ -87,18 +113,21 @@ private:
 	{
 		// Reset the position velocity parameters.
 		double xVel = getRandomNumberInRange<double>(-3,3);
-		double yVel = getRandomNumberInRange<double>(-12,-8);
+		double yVel = getRandomNumberInRange<double>(-18,-10);
 
-		fw.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), 
+		f.initialize( olc::vd2d(ScreenWidth()/2, ScreenHeight()), 
 					   olc::vd2d(xVel,yVel), 
 					   olc::vd2d(0, GRAVITY),
 					   FUSETIME, 
-					   EXPLODETIME );
+					   EXPLODETIME,
+					   5,
+					   25 );
 	}
 
 	// Creates the text that will be displayed on the screen.
 	// Populated with key, mouse, and screen information.
-    FireWork fw;
+    std::vector<FireWork> fw;
+	olc::Sprite* sprite;
 };
 
 #endif // __FIREWORKSDISPLAY_HPP__

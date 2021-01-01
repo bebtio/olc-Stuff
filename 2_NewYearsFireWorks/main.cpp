@@ -6,7 +6,7 @@ int main( int argc, char** argv )
     Entity2D<int> e;
     FireWorksDisplay fwd;
 
-    if( fwd.Construct(512,512,4,4) )
+    if( fwd.Construct(1024,1024,4,4) )
     {
         fwd.Start();
     }

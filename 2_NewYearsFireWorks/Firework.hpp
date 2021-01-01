@@ -21,7 +21,9 @@ struct FireWork : public Entity2D<double>
                     olc::vd2d initialVel, 
                     olc::vd2d initialAcc,
                     int delayTicks, 
-                    int explodeTicks )
+                    int explodeTicks,
+                    int numFlares,
+                    double flareVel )
     {
         
         setPos(initialPos);
@@ -29,7 +31,7 @@ struct FireWork : public Entity2D<double>
         setAcc(initialAcc);
         fuseDelayTicks = delayTicks;
         explosionTicks = explodeTicks;
-        createFlares(5,20);
+        createFlares( numFlares,flareVel );
     }
 
     void tick( ) 
@@ -38,7 +40,6 @@ struct FireWork : public Entity2D<double>
         fuseDelayTicks--;
 
         handleFlares(acc.y);
-  
     }
 
     bool timeToExplode( )
@@ -70,14 +71,13 @@ struct FireWork : public Entity2D<double>
         std::complex<double> flareVelocities;
 
         double angle( 2*M_PI / numFlares );
-        flarePos.resize(numFlares);
-        flareVel.resize(numFlares);
+        flares.resize(numFlares);
 
         for( int i = 0; i < numFlares; ++i )
         {
             flareVelocities = std::polar( velMag, angle*i );
-            flareVel.at(i) = olc::vd2d( flareVelocities.real(), flareVelocities.imag() );
-            flarePos.at(i) = olc::vd2d(0,0);
+            flares.at(i).setVel( olc::vd2d( flareVelocities.real(), flareVelocities.imag() ) );
+            flares.at(i).setPos( olc::vd2d( 0,0 ) );
         }
 
     }
@@ -88,16 +88,16 @@ struct FireWork : public Entity2D<double>
         {
             vel = olc::vd2d(0,0);
             
-            for( unsigned int i = 0; i < flarePos.size(); ++i )
+            for( unsigned int i = 0; i < flares.size(); ++i )
             {
-                if(flarePos.at(i).x == 0 && flarePos.at(i).y == 0)
+                if(flares.at(i).getPos().x == 0 && flares.at(i).getPos().y == 0)
                 {
-                    flarePos.at(i) = getPos();
+                    flares.at(i).setPos( getPos() );
+                    flares.at(i).setAcc( getAcc() );
                 }
                 else
                 {
-                    flarePos.at(i)   += flareVel.at(i);
-                    flareVel.at(i).y += vAcc;
+                    flares.at(i).update();
                 }
             }
             explosionTicks--;
@@ -107,8 +107,8 @@ struct FireWork : public Entity2D<double>
     int fuseDelayTicks;
     int explosionTicks;
 
-    std::vector<olc::vd2d> flareVel;
-    std::vector<olc::vd2d> flarePos;
+    std::vector<FireWork> flares;
+
 };
 
 
