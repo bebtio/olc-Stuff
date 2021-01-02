@@ -183,7 +183,7 @@ public:
             {
                 return(false);
             }
-            else if(b1.score == b2.score)
+            else
             {
                 if(b1.isEven)
                 {

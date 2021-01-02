@@ -31,7 +31,7 @@ struct BoxHighestScore
         this->score = rhs.score;
         this->isEven = rhs.isEven;
 
-
+        return(*this);
     }
 
 public:
