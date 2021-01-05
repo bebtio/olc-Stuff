@@ -10,9 +10,10 @@
 
 #include "Firework.hpp"
 
-#define NUMFIREWORKS 10
+#define NUMFIREWORKS 25
+#define NUMFLARES 50
 #define FUSETIME 100
-#define EXPLODETIME 300
+#define EXPLODEDURATION 300
 #define GRAVITY  0.15
 
 class FireWorksDisplay : public olc::PixelGameEngine
@@ -39,9 +40,9 @@ public:
 			              olc::vd2d(xVel,yVel), 
 						  olc::vd2d(0,GRAVITY),
 						  FUSETIME, 
-						  EXPLODETIME,
+						  EXPLODEDURATION,
 						  5,
-						  25 );
+						  NUMFLARES );
 		}
 
 		sprite = new olc::Sprite("../../2_NewYearsFireWorks/images/happyNewYear.png");
@@ -51,6 +52,7 @@ public:
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{
+
 
 		Clear( olc::Pixel( olc::BLACK ) );
 		DrawSprite((ScreenWidth() - sprite->width)/2,10, sprite, 0.25);
@@ -125,9 +127,9 @@ private:
 					   olc::vd2d(xVel,yVel), 
 					   olc::vd2d(0, GRAVITY),
 					   FUSETIME, 
-					   EXPLODETIME,
+					   EXPLODEDURATION,
 					   5,
-					   25 );
+					   NUMFLARES );
 	}
 
 	// Creates the text that will be displayed on the screen.
