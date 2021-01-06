@@ -53,7 +53,6 @@ public:
 	bool OnUserUpdate(float fElapsedTime) override
 	{
 
-
 		Clear( olc::Pixel( olc::BLACK ) );
 		DrawSprite((ScreenWidth() - sprite->width)/2,10, sprite, 0.25);
 
