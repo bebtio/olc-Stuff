@@ -2,8 +2,20 @@
 #ifndef __MMBNDISPLAY_HPP__
 #define __MMBNDISPLAY_HPP__
 
-#define OLC_PGE_APPLICATION
 #include "olcPixelGameEngine.h"
+
+enum DirectionState
+{
+	UPSTATE,
+	UPLEFTSTATE,
+	LEFTSTATE,
+	DOWNLEFTSTATE,
+	DOWNSTATE,
+	DOWNRIGHTSTATE,
+	RIGHTSTATE,
+	UPRIGHTSTATE
+
+};
 
 class MmbnDisplay : public olc::PixelGameEngine
 {
@@ -27,11 +39,16 @@ public:
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{
+		// Get User Input.
+		updateCurrentDirectionState();
 
-
+		// Update game state.
+        updateGameState();
+		// Render graphics.
 		Clear( olc::Pixel( olc::BLACK ) );
+
 		
-		readInput();
+
 
 		DrawSprite((ScreenWidth() - sprite->width)/2 + pos.x,
 		           (ScreenHeight() - sprite->height)/2 + pos.y,sprite);
@@ -46,35 +63,13 @@ public:
 	}
 
 private:
-    void readInput()
-	{
-		int additionalVel(2);
-		int vel(2);
-		if( GetKey( olc::B ).bHeld )
-		{
-			vel = 2 + additionalVel;
-		}
-		if( GetKey( olc::UP ).bHeld )
-		{
-			pos.y += vel;
-		}
-		else if( GetKey( olc::DOWN ).bHeld )
-		{
-			pos.y -= vel;
-		}
 
-		if( GetKey( olc::LEFT ).bHeld)
-		{
-			pos.x += vel;
-		}
-		else if( GetKey( olc::RIGHT ).bHeld )
-		{
-			pos.x -= vel;
-		}
-		
-	}
+	void updateCurrentDirectionState();
+	void updateGameState();
+
 	olc::vi2d pos;
 	olc::Sprite* sprite;
+	DirectionState currDirection;
 };
 
 #endif // __MMBNDISPLAY_HPP__

@@ -1,4 +1,6 @@
 #include <iostream>
+#define OLC_PGE_APPLICATION
+
 #include "MmbnDisplay.hpp"
 
 int main( int argc, char** argv )
