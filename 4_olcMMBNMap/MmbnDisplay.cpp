@@ -2,6 +2,15 @@
 
 
 //***************************************************************//
+// Checks keyboard input for all game buttons.
+//***************************************************************//
+void MmbnDisplay::updateUserInput()
+{
+    updateCurrentDirectionState();
+    updateCurrentButtonStates();
+}
+
+//***************************************************************//
 // Checks each of the directional 4 directional keys and records
 // whether they are pressed. Then sets the directionState variable
 // to one of eight directions: UP, LEFT, RIGHT, DOWN, UPLEFT, DOWNLEFT,
@@ -27,8 +36,18 @@ void MmbnDisplay::updateCurrentDirectionState()
     if( !upPressed && !leftPressed &&  downPressed &&  rightPressed ) { currDirection = DOWNRIGHTSTATE; }
 }
 
+//***************************************************************//
+// Checks each of they keys available to this game not related to
+// direction input. Buttons are:
+// TBD...
+//***************************************************************//
+void MmbnDisplay::updateCurrentButtonStates()
+{
+
+}
+
 void MmbnDisplay::updateGameState()
 {
-    
+
 }
 

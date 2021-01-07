@@ -64,7 +64,10 @@ public:
 
 private:
 
+	void updateUserInput();
 	void updateCurrentDirectionState();
+	void updateCurrentButtonStates();
+	
 	void updateGameState();
 
 	olc::vi2d pos;
