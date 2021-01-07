@@ -2,11 +2,12 @@
 #define __FIREWORK_HPP__
 
 #define OLC_PGE_APPLICATION
+#include "olcPixelGameEngine.h"
 #include <random>
 #include <vector>
 #include <complex>
 
-#include "olcPixelGameEngine.h"
+
 #include "Entity2D.hpp"
 
 template <class T>
