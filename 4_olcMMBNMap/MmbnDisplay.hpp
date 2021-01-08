@@ -40,7 +40,7 @@ public:
 	bool OnUserCreate() override
 	{
 
-		sprite = new olc::Sprite("../../4_olcMMBNMap/images/SecretCave.png");
+		gameMap = new olc::Sprite("../../4_olcMMBNMap/images/SecretCave.png");
 
 		return true;
 	}
@@ -61,7 +61,7 @@ public:
 
 	bool OnUserDestroy()
 	{
-		delete sprite;
+		delete gameMap;
 		return( true );
 	}
 
@@ -76,7 +76,7 @@ private:
 
 	olc::vd2d          pos;
 	const olc::vd2d    playerSpeed;
-	olc::Sprite*       sprite;
+	olc::Sprite*       gameMap;
 
 	DirectionState     currDirection;
 	MovementSpeedState currSpeed;

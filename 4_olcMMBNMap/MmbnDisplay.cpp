@@ -49,15 +49,26 @@ void MmbnDisplay::updateCurrentButtonStates()
 
 }
 
+//******************************************************************//
+// Controls the game paremeters such as player positions and speed.
+// That's all the controls for now.
+// Probably gonna move these switch statements to a State class
+// that has a function for each switch statement.
+// Give each function the State type and have it change the player 
+// parameters. Gonna probably need to encapsulate the position and velocity
+// as a struct or something. Kind of like the entity2d class.
+//******************************************************************//
 void MmbnDisplay::updateGameState()
 {
+    // Set player movement to the the default game movement speed.
     olc::vd2d movementSpeed(playerSpeed);
 
+    // Change the speed to FAST if the b button is held.
     switch (currSpeed)
     {
-
         case FASTSTATE:
             movementSpeed = playerSpeed * 2;
+            currSpeed     = NORMALSTATE;
             break;
 
         case NORMALSTATE:
@@ -68,8 +79,9 @@ void MmbnDisplay::updateGameState()
             break;
 
     }
-    currSpeed = NORMALSTATE;
 
+    // Check the direction the player wants to move in.
+    // Add the velocity to the position to move in that direction.
     switch (currDirection)
     {
         case UPSTATE:
@@ -110,16 +122,24 @@ void MmbnDisplay::updateGameState()
         currDirection = STANDSTATE;
         break;
     }
-
+    // Always change to the STANDSTATE.
     currDirection = STANDSTATE;
 }
 
+//******************************************************************//
+// Updates the games graphics.
+//******************************************************************//
 void MmbnDisplay::updateGraphics()
 {
-    		// Render graphics.
+    // Clear the screen first.
 	Clear( olc::Pixel( olc::BLACK ) );
-	DrawSprite((ScreenWidth() - sprite->width)/2 + pos.x,
-		        (ScreenHeight() - sprite->height)/2 + pos.y,sprite);
+
+    // Draw the map.
+	DrawSprite( ( ScreenWidth()  - gameMap->width  ) /2 + pos.x,
+		        ( ScreenHeight() - gameMap->height ) /2 + pos.y,
+                gameMap);
+
+    // Draw the player. Currently just a dot.
     DrawCircle( ScreenWidth()/2.0, ScreenHeight()/2.0,1.0);
     
 }
