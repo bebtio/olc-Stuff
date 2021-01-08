@@ -13,18 +13,26 @@ enum DirectionState
 	DOWNSTATE,
 	DOWNRIGHTSTATE,
 	RIGHTSTATE,
-	UPRIGHTSTATE
+	UPRIGHTSTATE,
+	STANDSTATE
 
+};
+
+enum MovementSpeedState
+{
+	NORMALSTATE,
+	FASTSTATE
 };
 
 class MmbnDisplay : public olc::PixelGameEngine
 {
 public:
 	MmbnDisplay()
+	: playerSpeed( olc::vd2d(100,50) )
 	{
 		sAppName = "ACDC Town!";
-		pos.x = 0; 
-		pos.y = 0;
+		pos.x = 0.0; 
+		pos.y = 0.0;
 	}
 
 public:
@@ -40,18 +48,13 @@ public:
 	bool OnUserUpdate(float fElapsedTime) override
 	{
 		// Get User Input.
-		updateCurrentDirectionState();
+		updateUserInput();
 
 		// Update game state.
         updateGameState();
-		// Render graphics.
-		Clear( olc::Pixel( olc::BLACK ) );
 
-		
-
-
-		DrawSprite((ScreenWidth() - sprite->width)/2 + pos.x,
-		           (ScreenHeight() - sprite->height)/2 + pos.y,sprite);
+		// Render the game.
+		updateGraphics();
 
 		return true;
 	}
@@ -67,12 +70,16 @@ private:
 	void updateUserInput();
 	void updateCurrentDirectionState();
 	void updateCurrentButtonStates();
-	
-	void updateGameState();
 
-	olc::vi2d pos;
-	olc::Sprite* sprite;
-	DirectionState currDirection;
+	void updateGameState();
+	void updateGraphics();
+
+	olc::vd2d          pos;
+	const olc::vd2d    playerSpeed;
+	olc::Sprite*       sprite;
+
+	DirectionState     currDirection;
+	MovementSpeedState currSpeed;
 };
 
 #endif // __MMBNDISPLAY_HPP__

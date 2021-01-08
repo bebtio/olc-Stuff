@@ -43,11 +43,83 @@ void MmbnDisplay::updateCurrentDirectionState()
 //***************************************************************//
 void MmbnDisplay::updateCurrentButtonStates()
 {
+    bool bPressed( GetKey( olc::B ).bHeld );
+
+    if( bPressed ) currSpeed = FASTSTATE;
 
 }
 
 void MmbnDisplay::updateGameState()
 {
+    olc::vd2d movementSpeed(playerSpeed);
 
+    switch (currSpeed)
+    {
+
+        case FASTSTATE:
+            movementSpeed = playerSpeed * 2;
+            break;
+
+        case NORMALSTATE:
+            movementSpeed = playerSpeed;
+
+        default:
+            movementSpeed = playerSpeed;
+            break;
+
+    }
+    currSpeed = NORMALSTATE;
+
+    switch (currDirection)
+    {
+        case UPSTATE:
+            pos.y += 1.5 * movementSpeed.y * GetElapsedTime();
+            break;
+        
+        case DOWNSTATE:
+            pos.y -= 1.5 * movementSpeed.y * GetElapsedTime();
+            break;
+        
+        case LEFTSTATE:
+            pos.x += movementSpeed.x * GetElapsedTime();
+            break;
+
+        case RIGHTSTATE:
+            pos.x -= movementSpeed.x * GetElapsedTime();
+            break;
+
+        case UPLEFTSTATE:
+            pos += .707* movementSpeed * GetElapsedTime();
+        break;
+
+        case DOWNLEFTSTATE:
+            pos.x += .707* movementSpeed.x * GetElapsedTime();
+            pos.y -= .707* movementSpeed.y * GetElapsedTime();
+        break;
+
+        case UPRIGHTSTATE:
+            pos.x -= .707* movementSpeed.x * GetElapsedTime();
+            pos.y += .707* movementSpeed.y * GetElapsedTime();
+        break;
+
+        case DOWNRIGHTSTATE:
+            pos -= .707* movementSpeed * GetElapsedTime();
+        break;
+    
+    default:
+        currDirection = STANDSTATE;
+        break;
+    }
+
+    currDirection = STANDSTATE;
 }
 
+void MmbnDisplay::updateGraphics()
+{
+    		// Render graphics.
+	Clear( olc::Pixel( olc::BLACK ) );
+	DrawSprite((ScreenWidth() - sprite->width)/2 + pos.x,
+		        (ScreenHeight() - sprite->height)/2 + pos.y,sprite);
+    DrawCircle( ScreenWidth()/2.0, ScreenHeight()/2.0,1.0);
+    
+}
