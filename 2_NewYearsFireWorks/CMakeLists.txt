@@ -26,4 +26,4 @@ add_executable( NewYearsFireWorks ${SRCS} )
 target_link_libraries( NewYearsFireWorks  -lX11 -lGL -lpthread -lpng -lstdc++fs )
 
 # Define include paths. Includes olcPixelGameEngine.
-target_include_directories( NewYearsFireWorks PRIVATE ${EXTERNAL_INSTALL_LOCATION}/src/olcPixelGameEngine/ )
+target_include_directories( NewYearsFireWorks PRIVATE ${OLC_INSTALL_LOCATION}/src/olcPixelGameEngine/ )

@@ -9,12 +9,12 @@ find_package(Git REQUIRED)
 include(ExternalProject)
 
 ## Set the location of the exteranal repos.
-set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external)
+set(OLC_INSTALL_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/external)
 
 ## Give commands to checkout the repos.
 ExternalProject_Add(
     olcPixelGameEngine
-    PREFIX ${EXTERNAL_INSTALL_LOCATION}
+    PREFIX ${OLC_INSTALL_LOCATION}
     GIT_REPOSITORY https://github.com/OneLoneCoder/olcPixelGameEngine.git
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""

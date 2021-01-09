@@ -26,4 +26,4 @@ add_executable( mmbnMap ${SRCS} )
 target_link_libraries( mmbnMap  -lX11 -lGL -lpthread -lpng -lstdc++fs )
 
 # Define include paths. Includes olcPixelGameEngine.
-target_include_directories( mmbnMap PRIVATE ${EXTERNAL_INSTALL_LOCATION}/src/olcPixelGameEngine/ )
+target_include_directories( mmbnMap PRIVATE ${OLC_INSTALL_LOCATION}/src/olcPixelGameEngine/ )

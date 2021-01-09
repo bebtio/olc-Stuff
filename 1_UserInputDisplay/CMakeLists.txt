@@ -26,4 +26,4 @@ add_executable( UserInputDisplay ${SRCS} )
 target_link_libraries( UserInputDisplay  -lX11 -lGL -lpthread -lpng -lstdc++fs )
 
 # Define include paths. Includes olcPixelGameEngine.
-target_include_directories( UserInputDisplay PRIVATE ${EXTERNAL_INSTALL_LOCATION}/src/olcPixelGameEngine/ )
+target_include_directories( UserInputDisplay PRIVATE ${OLC_INSTALL_LOCATION}/src/olcPixelGameEngine/ )
