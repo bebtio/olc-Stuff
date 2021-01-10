@@ -6,8 +6,13 @@ void MmbnDisplay::initialize()
 {
     gameMap = new olc::Sprite("../../4_olcMMBNMap/images/SecretCave.png");
 	lanAnimation = new SpriteAnimation( "../../4_olcMMBNMap/images/MMBN2Lan.png" );
-    lanAnimation->addFrame( {5,  4}, {17,39} ); // Facing forward frame.
-    lanAnimation->addFrameCornerCoords( {24, 4}, {41,43} ); // Facing away frame.
+
+    lanAnimation->addFrameCornerCoords( {53,  126},{68,  165});
+    lanAnimation->addFrameCornerCoords( {70,  126},{100, 165});
+    lanAnimation->addFrameCornerCoords( {102, 126},{129, 165});
+    lanAnimation->addFrameCornerCoords( {131, 126},{146, 165});
+    lanAnimation->addFrameCornerCoords( {148, 126},{178, 165});
+    lanAnimation->addFrameCornerCoords( {180, 126},{206, 165});
 }
 //***************************************************************//
 // Checks keyboard input for all game buttons.
@@ -71,6 +76,7 @@ void MmbnDisplay::updateGameState()
     // Set player movement to the the default game movement speed.
     olc::vd2d movementSpeed(playerSpeed);
 
+    if( GetKey( olc::N ).bPressed ) { lanAnimation->update(); }
     // Change the speed to FAST if the b button is held.
     switch (currSpeed)
     {
