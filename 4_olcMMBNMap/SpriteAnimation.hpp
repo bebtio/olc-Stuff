@@ -10,12 +10,15 @@ class SpriteAnimation : public olc::PGEX
 {
 
 public:
-    SpriteAnimation( uint32_t xPos, uint32_t yPos, std::string spritePath, uint32_t xDim, uint32_t yDim, uint32_t numFrames );
-    SpriteAnimation( olc::vi2d pos, std::string spritePath, olc::vi2d dims, uint32_t numFrames );
+    SpriteAnimation( std::string spritePath );
     ~SpriteAnimation() { delete sprite; }
 
+    // Add a new frame to this animation.
+    void addFrame( olc::vi2d framePos, olc::vi2d frameDims );
+    void addFrame( uint32_t xFramePos, uint32_t yFramePos, uint32_t xFrameDim, uint32_t yFrameDim );
+    void addFrameCornerCoords( olc::vi2d topLeftCorner, olc::vi2d bottomRightCorner );
+
     void update();
-    olc::Sprite getCurrentSprite();
     void drawSelf( olc::vi2d drawPos );
     void drawSelf( uint32_t xDrawPos, uint32_t yDrawPos );
 
