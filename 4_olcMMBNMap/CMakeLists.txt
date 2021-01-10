@@ -12,7 +12,7 @@ set( CMAKE_CXX_FLAGS "-Wall -g -std=c++17" )
 # to the variable SRCS. Thus, SRCS is a list a all C source and header files in the
 # current directory.
 
-file( GLOB SRCS *.cpp *.h )
+file( GLOB SRCS *.cpp *.hpp )
 
 # Define the target application executable and the list of CPP source
 # and header files needed for the executable.

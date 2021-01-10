@@ -1,6 +1,14 @@
 #include "MmbnDisplay.hpp"
 
 
+
+void MmbnDisplay::initialize()
+{
+    gameMap = new olc::Sprite("../../4_olcMMBNMap/images/SecretCave.png");
+	lanAnimation = new SpriteAnimation( "../../4_olcMMBNMap/images/MMBN2Lan.png" );
+    lanAnimation->addFrame( {5,  4}, {17,39} ); // Facing forward frame.
+    lanAnimation->addFrameCornerCoords( {24, 4}, {41,43} ); // Facing away frame.
+}
 //***************************************************************//
 // Checks keyboard input for all game buttons.
 //***************************************************************//
@@ -140,6 +148,9 @@ void MmbnDisplay::updateGraphics()
                 gameMap);
 
     // Draw the player. Currently just a dot.
-    DrawCircle( ScreenWidth()/2.0, ScreenHeight()/2.0,1.0);
+    uint32_t xScreenCenter( ScreenWidth()/2.0 );
+    uint32_t yScreenCenter( ScreenHeight()/2.0);
+    lanAnimation->drawSelf(olc::vi2d(xScreenCenter, yScreenCenter));
+    
     
 }

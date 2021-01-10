@@ -3,7 +3,7 @@
 #define __MMBNDISPLAY_HPP__
 
 #include "olcPixelGameEngine.h"
-
+#include "SpriteAnimation.hpp"
 enum DirectionState
 {
 	UPSTATE,
@@ -39,9 +39,7 @@ public:
 
 	bool OnUserCreate() override
 	{
-
-		gameMap = new olc::Sprite("../../4_olcMMBNMap/images/SecretCave.png");
-
+		initialize();
 		return true;
 	}
 
@@ -62,11 +60,13 @@ public:
 	bool OnUserDestroy()
 	{
 		delete gameMap;
+		delete lanAnimation;
 		return( true );
 	}
 
 private:
 
+	void initialize();
 	void updateUserInput();
 	void updateCurrentDirectionState();
 	void updateCurrentButtonStates();
@@ -80,6 +80,7 @@ private:
 
 	DirectionState     currDirection;
 	MovementSpeedState currSpeed;
+	SpriteAnimation*   lanAnimation;
 };
 
 #endif // __MMBNDISPLAY_HPP__
