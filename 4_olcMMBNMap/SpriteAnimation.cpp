@@ -102,8 +102,6 @@ void SpriteAnimation::drawSelf( uint32_t xDrawPos, uint32_t yDrawPos )
         throw;
     }
 
-    if( pge->GetKey( olc::N).bPressed ) { update(); }
-
     olc::vi2d currPos ( framePos.at ( currFrame ) );
     olc::vi2d currDims( frameDims.at( currFrame ) );
     olc::vi2d drawPos ( xDrawPos, yDrawPos        );
