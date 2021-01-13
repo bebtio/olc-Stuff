@@ -72,7 +72,7 @@ private:
 	void updateCurrentButtonStates();
 
 	void updateGameState();
-	void updateGraphics(float dt );
+	void updateGraphics( float dt );
 
 	olc::vd2d          pos;
 	const olc::vd2d    playerSpeed;

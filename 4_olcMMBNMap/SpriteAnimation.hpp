@@ -27,8 +27,8 @@ public:
 
     void update();
     void setFrameNum( uint32_t frameNum = 0 );
-    void DrawFrame( olc::Sprite *sprite, olc::vi2d drawPos );
     void DrawFrame( olc::Sprite *sprite, uint32_t xDrawPos, uint32_t yDrawPos );
+    void DrawFrame( olc::Sprite *sprite, olc::vi2d drawPos );
     const olc::vi2d getCurrentDims() { return( frameDims.at( currFrame ) ); }
 private:
 

@@ -1,13 +1,13 @@
-#ifndef __SPRITEANIMATION__HPP__
-#define __SPRITEANIMATION__HPP__
+#ifndef __SPRITESHEET__HPP__
+#define __SPRITESHEET__HPP__
 
 #include "olcPixelGameEngine.h"
+#include "SpriteAnimation.hpp"
 #include <vector>
 #include <iostream>
 #include <string>
+#include <map>
 
-namespace olc
-{
 //****************************************************//
 //
 //****************************************************//
@@ -16,7 +16,7 @@ class SpriteSheet
 
 public:
     SpriteSheet( std::string spriteSheetPath );
-    ~SpriteSheet();
+    virtual ~SpriteSheet();
 
     virtual void DrawAnimation    ( std::string animationKey, olc::vi2d pos, float dt );
     virtual void DrawAnimation    ( std::string animationKey, uint32_t xDrawPos, uint32_t yDrawPos, float dt );
@@ -24,10 +24,10 @@ public:
     
 private:
     virtual bool loadAnimations() = 0;
-    olc::Sprite *spriteSheet;
 
+    olc::Sprite *spriteSheet;
     std::map< std::string, olc::SpriteAnimation > animations;
 };
 
-}
-#endif // __SPRITEANIMATION_HPP__
+
+#endif // __SPRITESHEET_HPP__
