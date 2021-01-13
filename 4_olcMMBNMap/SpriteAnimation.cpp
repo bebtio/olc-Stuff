@@ -1,16 +1,16 @@
 
 #include "SpriteAnimation.hpp"
 
+using namespace olc;
+
 //**************************************************************//
 // SpriteAnimation constructor
 // spritePath - path to the sprite sheet.
 //**************************************************************//
-SpriteAnimation::SpriteAnimation( std::string spritePath )
+SpriteAnimation::SpriteAnimation()
 {
     this->currFrame = 0;
     this->numFrames = 0;
-
-    sprite = new olc::Sprite(spritePath);
 }
 
 //**************************************************************//
@@ -83,15 +83,15 @@ void SpriteAnimation::setFrameNum( uint32_t frameNum )
 //**************************************************************//
 // Draws the sprite at the to screen at position drawPos.
 //**************************************************************//
-void SpriteAnimation::drawSelf( olc::vi2d drawPos )
+void SpriteAnimation::DrawFrame( olc::Sprite* sprite, olc::vi2d drawPos )
 {
-    drawSelf( drawPos.x, drawPos.y );
+    DrawFrame( sprite, drawPos.x, drawPos.y );
 }
 
 //**************************************************************//
 // Draws the sprite to the screen at the position (xDrawPos,yDrawPos).
 //**************************************************************//
-void SpriteAnimation::drawSelf( uint32_t xDrawPos, uint32_t yDrawPos )
+void SpriteAnimation::DrawFrame( olc::Sprite* sprite, uint32_t xDrawPos, uint32_t yDrawPos )
 {
 
     if( numFrames == 0)

@@ -52,7 +52,7 @@ public:
         updateGameState();
 
 		// Render the game.
-		updateGraphics();
+		updateGraphics( fElapsedTime );
 
 		return true;
 	}
@@ -72,7 +72,7 @@ private:
 	void updateCurrentButtonStates();
 
 	void updateGameState();
-	void updateGraphics();
+	void updateGraphics(float dt );
 
 	olc::vd2d          pos;
 	const olc::vd2d    playerSpeed;
@@ -80,7 +80,12 @@ private:
 
 	DirectionState     currDirection;
 	MovementSpeedState currSpeed;
-	SpriteAnimation*   lanAnimation;
+
+	olc::Sprite*          lanSprite;
+	olc::SpriteAnimation* lanAnimation;
+
+	float frameTime;
+	float accTime;
 };
 
 #endif // __MMBNDISPLAY_HPP__

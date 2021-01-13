@@ -6,7 +6,8 @@
 #include <iostream>
 #include <string>
 
-
+namespace olc
+{
 //****************************************************//
 //
 //****************************************************//
@@ -14,8 +15,8 @@ class SpriteAnimation : public olc::PGEX
 {
 
 public:
-    SpriteAnimation( std::string spritePath );
-    ~SpriteAnimation() { delete sprite; }
+    SpriteAnimation();
+    ~SpriteAnimation() {}
 
     // Add a new frame to this animation.
     void addFrame( olc::vi2d framePos, olc::vi2d frameDims );
@@ -26,17 +27,17 @@ public:
 
     void update();
     void setFrameNum( uint32_t frameNum = 0 );
-    void drawSelf( olc::vi2d drawPos );
-    void drawSelf( uint32_t xDrawPos, uint32_t yDrawPos );
-
+    void DrawFrame( olc::Sprite *sprite, olc::vi2d drawPos );
+    void DrawFrame( olc::Sprite *sprite, uint32_t xDrawPos, uint32_t yDrawPos );
     const olc::vi2d getCurrentDims() { return( frameDims.at( currFrame ) ); }
 private:
 
-    olc::Sprite* sprite;
     std::vector<olc::vi2d> framePos;
     std::vector<olc::vi2d> frameDims;
 
     uint32_t numFrames;
     uint32_t currFrame;
 };
+
+}
 #endif // __SPRITEANIMATION_HPP__
