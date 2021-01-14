@@ -38,6 +38,7 @@ void SpriteSheet::DrawAnimation( std::string animationKey, olc::vi2d pos, float 
 //****************************************************************//
 void SpriteSheet::DrawAnimation( std::string animationKey, uint32_t xDrawPos, uint32_t yDrawPos, float dt )
 {
+    animations[animationKey].update( dt );
     animations[animationKey].DrawFrame( spriteSheet, xDrawPos, yDrawPos );
 }
 

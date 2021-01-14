@@ -3,7 +3,9 @@
 #define __MMBNDISPLAY_HPP__
 
 #include "olcPixelGameEngine.h"
-#include "SpriteAnimation.hpp"
+#include "LanSheet.hpp"
+
+
 enum DirectionState
 {
 	UPSTATE,
@@ -60,7 +62,6 @@ public:
 	bool OnUserDestroy()
 	{
 		delete gameMap;
-		delete lanAnimation;
 		return( true );
 	}
 
@@ -81,11 +82,7 @@ private:
 	DirectionState     currDirection;
 	MovementSpeedState currSpeed;
 
-	olc::Sprite*          lanSprite;
-	olc::SpriteAnimation* lanAnimation;
-
-	float frameTime;
-	float accTime;
+	LanSheet              lan;
 };
 
 #endif // __MMBNDISPLAY_HPP__

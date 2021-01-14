@@ -11,6 +11,9 @@ SpriteAnimation::SpriteAnimation()
 {
     this->currFrame = 0;
     this->numFrames = 0;
+
+    frameTime   = 1;
+    elapsedTime = 0;
 }
 
 //**************************************************************//
@@ -63,9 +66,17 @@ void SpriteAnimation::addFrameCornerCoords( olc::vi2d topLeftCorner, olc::vi2d b
 // Loops over frames. Resets currFrame to 0 when we exceed the 
 // number of frames this animation has.
 //**************************************************************//
-void SpriteAnimation::update()
+void SpriteAnimation::update( float dt )
 {
-    currFrame++;
+
+    elapsedTime += dt;
+
+    if( elapsedTime >= frameTime )
+    {
+        currFrame++;
+        elapsedTime -= frameTime;
+    }
+
     // Minus 1 for zero indexing.
     if( currFrame > numFrames - 1 ) 
     {

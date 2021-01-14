@@ -22,7 +22,7 @@ public:
     virtual void DrawAnimation    ( std::string animationKey, uint32_t xDrawPos, uint32_t yDrawPos, float dt );
     virtual void SetAnimationFrame( std::string animationKey, uint32_t frame );
     
-private:
+protected:
     virtual bool loadAnimations() = 0;
 
     olc::Sprite *spriteSheet;

@@ -5,29 +5,6 @@
 void MmbnDisplay::initialize()
 {
     gameMap      = new olc::Sprite("../../4_olcMMBNMap/images/SecretCave.png");
-	lanSprite    = new olc::Sprite( "../../4_olcMMBNMap/images/MMBN2Lan.png" );
-    
-    frameTime    = 1;
-    accTime      = 0;
-
-    for( int i = 0; i < lanSprite->width; i++ )
-    {
-        for( int j = 0; j < lanSprite->height; j++ )
-        {
-            if( lanSprite->GetPixel(i,j) == olc::Pixel( 0,128,128,255 ) )
-            {
-                lanSprite->SetPixel(i,j, olc::Pixel(0,128,128,254) );
-            }
-        }
-    }
-
-    lanAnimation = new olc::SpriteAnimation();
-    lanAnimation->addFrameCornerCoords( {53,  126},{68,  165});
-    lanAnimation->addFrameCornerCoords( {70,  126},{100, 165});
-    lanAnimation->addFrameCornerCoords( {102, 126},{129, 165});
-    lanAnimation->addFrameCornerCoords( {131, 126},{146, 165});
-    lanAnimation->addFrameCornerCoords( {148, 126},{178, 165});
-    lanAnimation->addFrameCornerCoords( {180, 126},{206, 165});
 }
 //***************************************************************//
 // Checks keyboard input for all game buttons.
@@ -178,15 +155,9 @@ void MmbnDisplay::updateGraphics( float dt )
     uint32_t xScreenCenter( ScreenWidth()/2.0 );
     uint32_t yScreenCenter( ScreenHeight()/2.0);
 
-    // Move this into the Sprite Animation class. vvvv
-    accTime +=  dt;
-    if( accTime > frameTime )
-    {
-        accTime = 0;
-        lanAnimation->update();
-    }
-    lanAnimation->DrawFrame( lanSprite, olc::vi2d(xScreenCenter, yScreenCenter));
-    // AND THIS ^^^^
+    lan.DrawAnimation( "walkLeft", olc::vi2d(xScreenCenter, yScreenCenter), dt);
+
+
 
     
     
