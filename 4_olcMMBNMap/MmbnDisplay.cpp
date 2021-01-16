@@ -4,7 +4,11 @@
 
 void MmbnDisplay::initialize()
 {
-    gameMap      = new olc::Sprite("../../4_olcMMBNMap/images/SecretCave.png");
+    // gameMap      = new olc::Sprite("../../4_olcMMBNMap/images/SecretCave.png");
+
+    gameMap = new olc::Sprite("../../4_olcMMBNMap/images/MMBNAcdcTown.png");
+    SetPixelMode( olc::Pixel::MASK );
+
 }
 //***************************************************************//
 // Checks keyboard input for all game buttons.
@@ -67,13 +71,6 @@ void MmbnDisplay::updateGameState()
 {
     // Set player movement to the the default game movement speed.
     olc::vd2d movementSpeed(playerSpeed);
-
-    if( GetKey( olc::N ).bHeld)
-    { SetPixelMode( olc::Pixel::MASK); }
-    else
-    {
-        SetPixelMode( olc::Pixel::NORMAL);
-    }
     
     // Change the speed to FAST if the b button is held.
     switch (currSpeed)
@@ -152,13 +149,9 @@ void MmbnDisplay::updateGraphics( float dt )
                 gameMap);
 
     // Draw the player. Currently just a dot.
-    uint32_t xScreenCenter( ScreenWidth()/2.0 );
-    uint32_t yScreenCenter( ScreenHeight()/2.0);
+    uint32_t xScreenCenter( ScreenWidth()/  2.0 );
+    uint32_t yScreenCenter( ScreenHeight()/ 2.0 );
 
     lan.DrawAnimation( "walkLeft", olc::vi2d(xScreenCenter, yScreenCenter), dt);
 
-
-
-    
-    
 }

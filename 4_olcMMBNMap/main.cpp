@@ -8,7 +8,7 @@ int main( int argc, char** argv )
 
     MmbnDisplay display;
 
-    display.Construct(240,160,1,1);
+    display.Construct(240,160,2,2);
     display.Start();
     std::cout << "HELLO WORLD" << std::endl;
 

@@ -2,11 +2,12 @@
 #define __LANSHEET_HPP__
 
 #include "SpriteSheet.hpp"
+#include "Entity2D.hpp"
 
 //****************************************************//
 //
 //****************************************************//
-class LanSheet : public SpriteSheet
+class LanSheet : public SpriteSheet, public Entity2D<float>
 {
 
 public:
