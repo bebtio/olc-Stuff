@@ -21,6 +21,10 @@ public:
     void setPos( olc::v2d_generic<T> pos ) { this->pos = pos; }
     void setVel( olc::v2d_generic<T> vel ) { this->vel = vel; }
     void setAcc( olc::v2d_generic<T> acc ) { this->acc = acc; }
+;
+    void setPos( T posX, T posY ) { this->pos = olc::v2d_generic<T>( posX, posY ); }
+    void setVel( T velX, T velY ) { this->pos = olc::v2d_generic<T>( velX, velY ); }
+    void setAcc( T accX, T accY ) { this->pos = olc::v2d_generic<T>( accX, accY ); }
 
     olc::v2d_generic<T> getPos() { return( this->pos ); }
     olc::v2d_generic<T> getVel() { return( this->vel ); }
