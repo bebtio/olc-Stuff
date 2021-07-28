@@ -214,7 +214,7 @@ private:
 	// Contains the string that will be written to the screen.
     std::string displayString;
 
-	//
+	// Mapping containing a string describing each olc::Key type.
 	std::map<olc::Key,std::string> keyMap;
 
 };
