@@ -3,10 +3,14 @@
 #include <map>
 #include "olcPixelGameEngine.h"
 
+/*******************************************************************/
 
 class UserInputDisplay : public olc::PixelGameEngine
 {
 public:
+	//******************************************************//
+	// Constructor.
+	//******************************************************//
 	UserInputDisplay()
 	{
 		sAppName = "Displaying";
@@ -14,6 +18,10 @@ public:
 
 public:
 
+	//******************************************************//
+	// OnUserCreate.
+	// Called on creation of the object. Initializes stuff.
+	//******************************************************//
 	bool OnUserCreate() override
 	{
 		displayString = "DisplayString";
@@ -22,6 +30,10 @@ public:
 		return true;
 	}
 
+	//******************************************************//
+	// OnuserUpdate.
+	// The main loop.
+	//******************************************************//
 	bool OnUserUpdate(float fElapsedTime) override
 	{
 
@@ -34,8 +46,10 @@ public:
 
 private:
 
+	//******************************************************//
 	// Creates the text that will be displayed on the screen.
 	// Populated with key, mouse, and screen information.
+	//******************************************************//
 	void CreateDisplayString()
 	{
 		displayString  = "IsFocused:    " + std::to_string( IsFocused() )     + "\n";
@@ -47,9 +61,11 @@ private:
 		displayString += GetCurrentlyPressedMousedButtons()                   + "\n";
 	}
 
+	//******************************************************//
 	// Loops through each of the buttons in the keyMap and checks whether the button
 	// is held or pressed. If it is, then push the string to the currentlyPressedKey string.
 	// Return the string once looping is finished.
+	//******************************************************//
 	std::string GetCurrentlyPressedKeys()
 	{
 	
@@ -75,6 +91,9 @@ private:
 
 	}
 
+	//******************************************************//
+	// Currently doesn't do anything yet.
+	//******************************************************//
 	std::string GetCurrentlyPressedMousedButtons()
 	{
 
@@ -84,10 +103,14 @@ private:
 
 	}
 
+	//******************************************************//
 	// Initialize the map that contains the mapping between olc define key enumerations
 	// and their string representations for easy printing.
+	// Not pretty but easy to understand and use.
+	//******************************************************//
 	void initializeKeyMap()
 	{
+
     	keyMap[olc::NONE]       = "NONE";
 		keyMap[olc::A]          = "A";
 		keyMap[olc::B]          = "B";
@@ -185,10 +208,13 @@ private:
 		keyMap[olc::OEM_7]      = "OEM_7";
 		keyMap[olc::OEM_8]      = "OEM_8";
 		keyMap[olc::CAPS_LOCK]  = "CAPS_LOCK";
+
 	}
 
+	// Contains the string that will be written to the screen.
     std::string displayString;
 
+	//
 	std::map<olc::Key,std::string> keyMap;
 
 };
